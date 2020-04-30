@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BusReservationSystem">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="652.0" minHeight="10.0" prefHeight="652.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TabPane prefHeight="200.0" prefWidth="798.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="1">
+        <tabs>
+          <Tab fx:id="tabReservation" onSelectionChanged="#selectReservation" text="Reservation">
+              <content>
+                  <fx:include fx:id="subTabReservations" source="subTabs/subtab_Reservation.fxml"/>
+              </content>
+          </Tab>
+          <Tab fx:id="tabBusManagment" onSelectionChanged="#selectBusManagement" text="Bus Management">
+                <content>
+                    <fx:include fx:id="subTabBusManagement" source="subTabs/subtab_BusManagement.fxml"/>
+                </content>
+          </Tab>
+            <Tab fx:id="tabFareCalculator" onSelectionChanged="#selectFareCalculator" text="Fare Calculator">
+                <content>
+                    <fx:include fx:id="subTabFareCalculator" source="subTabs/subtab_FareCalculator.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabAdmin" onSelectionChanged="#selectAdmin" text="Admin Panel">
+                <content>
+                    <fx:include fx:id="subTabAdmin" source="subTabs/subtab_AdminPanel.fxml"/>
+                </content>
+            </Tab>
+            <Tab fx:id="tabTickets" onSelectionChanged="#selectTickets" text="Tickets">
+                <content>
+                    <fx:include fx:id="subTickets" source="subTabs/subtab_Tickets.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Pane prefHeight="109.0" prefWidth="1024.0">
+         <children>
+            <Label layoutX="300.0" layoutY="31.0" text="Luxury Bus Services">
+               <font>
+                  <Font name="Times New Roman Bold" size="48.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</GridPane>

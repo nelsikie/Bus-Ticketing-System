@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.subTabs.SubtabReservation">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="645.0" prefWidth="1039.0">
+            <children>
+                <Label layoutX="29.0" layoutY="64.0" text="Start Station :">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <ChoiceBox fx:id="ddStartStation" layoutX="125.0" layoutY="60.0" prefHeight="25.0" prefWidth="273.0" />
+                <Label layoutX="29.0" layoutY="103.0" text="Enter Date:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <TextField fx:id="dateDay" layoutX="149.0" layoutY="99.0" prefHeight="25.0" prefWidth="57.0" />
+                <TextField fx:id="dateMonth" layoutX="259.0" layoutY="99.0" prefHeight="25.0" prefWidth="68.0" />
+                <TextField fx:id="dateYear" layoutX="402.0" layoutY="99.0" prefHeight="25.0" prefWidth="68.0" />
+                <Label layoutX="117.0" layoutY="103.0" text="DD" />
+                <Label layoutX="214.0" layoutY="103.0" text="/   MM" />
+                <Label layoutX="342.0" layoutY="103.0" text="/   YYYY" />
+                <Label layoutX="503.0" layoutY="64.0" text="DestinationStation :">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <ChoiceBox fx:id="ddDestionationStation" layoutX="647.0" layoutY="60.0" prefHeight="25.0" prefWidth="281.0" />
+                <Button fx:id="getBusDetails" layoutX="503.0" layoutY="99.0" mnemonicParsing="false" text="Get Bus Details">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Button>
+                <Button fx:id="resetButton" layoutX="623.0" layoutY="99.0" mnemonicParsing="false" text="Reset">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Label layoutX="34.0" layoutY="181.0" text="Bus ID:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="34.0" layoutY="211.0" text="DOJ:" />
+                <SubScene fx:id="busDetails" height="323.0" layoutX="343.0" layoutY="228.0" width="659.0">
+                    <root>
+                        <Region />
+                    </root>
+                </SubScene>
+                <Button layoutX="84.0" layoutY="242.0" mnemonicParsing="false" text="Make Reservation">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Label layoutX="33.0" layoutY="148.0" text="Select Bus from List &amp; Click Load" />
+                <ChoiceBox fx:id="ddAvailableBuses" layoutX="233.0" layoutY="144.0" prefHeight="25.0" prefWidth="273.0" />
+                <Button fx:id="loadButton" layoutX="597.0" layoutY="144.0" mnemonicParsing="false" text="Load" />
+                <Label layoutX="388.0" layoutY="181.0" text="You have Selected: " />
+                <TextField fx:id="seatNumber" layoutX="523.0" layoutY="177.0" />
+            </children></AnchorPane>
+</AnchorPane>

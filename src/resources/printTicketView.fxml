@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrintTicketController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="457.0" minHeight="10.0" prefHeight="457.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="117.0" layoutY="10.0" text="Luxury Bus Service">
+               <font>
+                  <Font name="System Bold" size="42.0" />
+               </font></Label>
+            <Line endX="503.0" layoutX="101.0" layoutY="82.0" startX="-100.0" />
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <children>
+            <Label layoutX="44.0" layoutY="22.0" text="PNR Number" />
+            <Label layoutX="44.0" layoutY="53.0" text="Source Station" />
+            <Label layoutX="44.0" layoutY="82.0" text="Destination Station" />
+            <Label layoutX="44.0" layoutY="114.0" text="Date of Journey" />
+            <Label layoutX="44.0" layoutY="145.0" text="Bus Timing" />
+            <Label layoutX="44.0" layoutY="178.0" text="Booked By Agent" />
+            <Label layoutX="44.0" layoutY="209.0" text="Total Distance in KM" />
+            <Label layoutX="44.0" layoutY="239.0" text="Total Journey Time in Hour" />
+            <Label layoutX="44.0" layoutY="270.0" text="Total Cost of Ticket" />
+            <Label layoutX="44.0" layoutY="302.0" text="Bus Identifier" />
+            <Label layoutX="220.0" layoutY="331.0" text="Passenger(s) Information">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <Label layoutX="44.0" layoutY="362.0" text="Seat Number" />
+            <Label layoutX="234.0" layoutY="371.0" text="Passenger Name" />
+            <Label layoutX="418.0" layoutY="370.0" text="Mobile Number" />
+            <Label fx:id="fieldPNR" layoutX="221.0" layoutY="22.0" text="PNR_Field" />
+            <Label fx:id="fieldSourceStation" layoutX="221.0" layoutY="53.0" text="SourceStation_Field" />
+            <Label fx:id="field_DestinationStationField" layoutX="221.0" layoutY="82.0" text="Destination_Station_Field" />
+            <Label fx:id="fieldDateOfJourney" layoutX="219.0" layoutY="114.0" text="Date_Of_Journey_Field" />
+            <Label fx:id="fieldBusTiming" layoutX="221.0" layoutY="145.0" text="Bus_Timing_Field" />
+            <Label fx:id="fieldBookedByAgent" layoutX="219.0" layoutY="178.0" text="Booked_By_Agent_Field" />
+            <Label fx:id="fieldTotalDistanceInKM" layoutX="221.0" layoutY="209.0" text="Total_Distance_In_KM_Field" />
+            <Label fx:id="field_TotalJourneyTimeInHour" layoutX="219.0" layoutY="239.0" text="Total_Journey_Time_In_Hour_Field" />
+            <Label fx:id="fieldTotalCostOfTicket" layoutX="221.0" layoutY="270.0" text="Total_Cost_Of_Ticket_Field" />
+            <Label fx:id="fieldBusIdentifier" layoutX="220.0" layoutY="302.0" text="Bus_Identifier_Field" />
+            <Label fx:id="fieldSeatNR" layoutX="44.0" layoutY="379.0" text="seat_NR_Field" />
+            <Label layoutX="235.0" layoutY="387.0" text="Passenger_Name_Field" />
+            <Label layoutX="418.0" layoutY="387.0" text="Mobile_Number_field" />
+            <Button layoutX="53.0" layoutY="418.0" mnemonicParsing="false" text="Print Ticket" />
+            <Button layoutX="256.0" layoutY="418.0" mnemonicParsing="false" text="Cancel Ticket" />
+            <Button layoutX="438.0" layoutY="418.0" mnemonicParsing="false" text="Close" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.subTabs.SubtabTickets">
+   <children>
+      <Label layoutX="134.0" layoutY="72.0" text="Enter PNR Number of Ticket">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font></Label>
+      <TextField fx:id="fieldGetTicketInfo" layoutX="226.0" layoutY="131.0" />
+      <Button fx:id="buttonGetTicketInfo" layoutX="257.0" layoutY="241.0" mnemonicParsing="false" text="Ticket Details" />
+   </children>
+</AnchorPane>

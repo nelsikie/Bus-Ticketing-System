@@ -1,15 +1,14 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class writeDBCalls {
 
     public boolean loginCorrect = false;
     public ConnectDB CB = new ConnectDB();
-    Connection C = null;
     public boolean cs = false;
+    Connection C = null;
 
     public void createBusRoute(int busRouteID, int busID, String busName, int busSourceStation, int busDestination, String busStartTime, int Distance) throws SQLException {
         try {
@@ -19,6 +18,7 @@ public class writeDBCalls {
             // DE DATABASE MOET WORDEN AANGEPAST. JE MOET DE BUS TABEL AANMAKEN EN DAN EEN REFERENTIE NAAR DE BUS ROUTE.
             // WAARSCHIJNLIJK MOET DE TABLE OPNIEUW GEMAAKT WORDEN VOOR BUSROUTE
             C = CB.ConnectToDB();
+            System.out.println("Should not print!!!!!");
             cs = C.createStatement().execute("INSERT INTO busRoute(busID, busName, busSourceStation, busDestinationStation, busStartTime, busDistance)" +
                     "VALUES('" + busID + "','" + busName + "', '" + busSourceStation + "', '" + busDestination + "', '" + busStartTime + "', '" + busDestination + "')");
         } catch (ClassNotFoundException | SQLException e) {

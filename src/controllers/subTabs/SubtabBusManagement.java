@@ -34,92 +34,68 @@ public class SubtabBusManagement {
     public int busRouteID = 1;
     public int selectedOriginSetINT;
     public int selectedDestinationSetINT;
+    public final ToggleGroup originGroup = new ToggleGroup();
+    public final ToggleGroup destinationGroup = new ToggleGroup();
 
     @FXML
     public void initialize() {
         BM_Origin_AlbanyNY.setSelected(true);
         BM_Destination_Montreal.setSelected(true);
-//        assignColumns();
 
-    }
+        // Radio buttons [Origin] / Temporary Radio buttons for [Destination]
 
-    public void buttonAddBus(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        System.out.println("add bus button");
-        int BusID = Integer.parseInt(BM_BusID_Field.getText());
-        String BusName = BM_BusName_Field.getText();
-
-        // Radio buttons [Origin]
-        final ToggleGroup originGroup = new ToggleGroup();
         BM_Origin_AlbanyNY.setUserData("Albany");
         BM_Origin_NashVilleTN.setUserData("NashVille");
         BM_Origin_AlbanyNY.setToggleGroup(originGroup);
         BM_Origin_NashVilleTN.setToggleGroup(originGroup);
 
-        String selectedOrigin = originGroup.getSelectedToggle().getUserData().toString();
 
-
-        // Temporary Radio buttons for [Destination]
-        final ToggleGroup destinationGroup = new ToggleGroup();
         BM_Destination_Montreal.setUserData("Montreal");
         BM_Destination_NewYork.setUserData("New York");
         BM_Destination_Montreal.setToggleGroup(destinationGroup);
         BM_Destination_NewYork.setToggleGroup(destinationGroup);
 
-        String selectedDestination = destinationGroup.getSelectedToggle().getUserData().toString();
+    }
 
-        String Hour = BM_Hour.getText();
-        String Minutes = BM_Minutes.getText();
-        String BusTime = Hour + ":" + Minutes;
-
-        writeDBCalls WDBC = new writeDBCalls();
-        //ConnectDB db = new ConnectDB();
-        switch (selectedOrigin) {
-            case "Albany":
-                selectedOriginSetINT = 1;
-                break;
-            case "NashVille":
-                selectedOriginSetINT = 3;
-                break;
-        }
-        switch (selectedDestination) {
-            case "Montreal":
-                selectedDestinationSetINT = 2;
-                break;
-            case "New York":
-                selectedDestinationSetINT = 4;
-                break;
-        }
-
-        if (BM_BusName_Field.getText().isEmpty()) {
-            System.out.println("Name not entered");
+    public void buttonAddBus(ActionEvent actionEvent) throws SQLException {
+        if(BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty()) {
+            System.out.println("You need to enter a value");
         } else {
+
+            int BusID = Integer.parseInt(BM_BusID_Field.getText());
+            String BusName = BM_BusName_Field.getText();
+
+            String selectedOrigin = originGroup.getSelectedToggle().getUserData().toString();
+            String selectedDestination = destinationGroup.getSelectedToggle().getUserData().toString();
+
+            String Hour = BM_Hour.getText();
+            String Minutes = BM_Minutes.getText();
+            String BusTime = Hour + ":" + Minutes;
+
+            writeDBCalls WDBC = new writeDBCalls();
+            switch (selectedOrigin) {
+                case "Albany":
+                    selectedOriginSetINT = 1;
+                    break;
+                case "NashVille":
+                    selectedOriginSetINT = 3;
+                    break;
+            }
+            switch (selectedDestination) {
+                case "Montreal":
+                    selectedDestinationSetINT = 2;
+                    break;
+                case "New York":
+                    selectedDestinationSetINT = 4;
+                    break;
+            }
             WDBC.createBusRoute(busRouteID, BusID, BusName, selectedOriginSetINT, selectedDestinationSetINT, BusTime, 50);
             // SQL Insert command. Print for now
             System.out.println("BusID: " + BusID + " Bus name " + BusName + "\n" +
                     "Origin: " + selectedOrigin + " to Destination : " + selectedDestination + " @ " + Hour + "H : " + Minutes + "M ");
         }
-
-
     }
 
-    // Most likely needs to be set in the initialize method
-//    public void assignColumns () {
-//        busIDTable.setCellValueFactory(new PropertyValueFactory<>("busIDTable"));
-//        busScheduleOverview.setItems(getData());
-////        busNameTable;
-////        busOriginTable;
-////        busDestinationTable;
-////        busDepartureTimeTable;
-////        busDistanceTable;
-//    }
-//
-//    private ObservableList getData() {
-//        List list = new ArrayList();
-//        list.add("test");
-//        ObservableList data = FXCollections.observableArrayList(list);
-//
-//        return data;
-//    }
     public void buttonFetchBusData(ActionEvent actionEvent) {
         System.out.println("fetch bus data button");
     }

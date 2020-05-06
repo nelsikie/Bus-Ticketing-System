@@ -19,8 +19,8 @@
       <Button fx:id="BM_RemoveBus" layoutX="540.0" layoutY="21.0" mnemonicParsing="false" onAction="#buttonRemoveBus" prefHeight="61.0" prefWidth="124.0" text="Remove Bus" />
       <TableView fx:id="busScheduleOverview" layoutX="18.0" layoutY="187.0" onSort="#onSortBusSchedule" prefHeight="311.0" prefWidth="899.0">
         <columns>
-          <TableColumn fx:id="busIDTable" prefWidth="32.0" text="ID" />
-          <TableColumn fx:id="busNameTable" prefWidth="84.0" text="Bus Name" />
+            <TableColumn fx:id="busIDTable" prefWidth="32.0" text="ID" />
+            <TableColumn fx:id="busNameTable" prefWidth="84.0" text="Bus Name" />
             <TableColumn fx:id="busOriginTable" prefWidth="183.0" text="Orignated From" />
             <TableColumn fx:id="busDestinationTable" prefWidth="172.0" text="Destination" />
             <TableColumn fx:id="busDepartureTimeTable" prefWidth="241.0" text="Departure Time" />
@@ -32,6 +32,5 @@
       <Label layoutX="17.0" layoutY="123.0" text="Destination" />
       <RadioButton fx:id="BM_Destination_Montreal" layoutX="92.0" layoutY="122.0" mnemonicParsing="false" text="Montreal" />
       <RadioButton fx:id="BM_Destination_NewYork" layoutX="194.0" layoutY="123.0" mnemonicParsing="false" text="New York" />
-      <Button fx:id="busRouteRefresh" layoutX="22.0" layoutY="515.0" mnemonicParsing="false" onAction="#busRouteRefreshOverview" text="Refresh" />
    </children>
 </Pane>

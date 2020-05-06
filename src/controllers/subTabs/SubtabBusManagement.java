@@ -1,19 +1,32 @@
 package controllers.subTabs;
 
+import Model.busRoute;
+import database.ConnectDB;
+import database.readDBCalls;
 import database.writeDBCalls;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SubtabBusManagement {
-    public TableColumn busIDTable;
-    public TableColumn busNameTable;
-    public TableColumn busOriginTable;
-    public TableColumn busDestinationTable;
-    public TableColumn busDepartureTimeTable;
-    public TableColumn busDistanceTable;
+    public readDBCalls RDBC = new readDBCalls();
+    public ConnectDB CDB = new ConnectDB();
+    ObservableList<busRoute> BR = FXCollections.observableArrayList();
+    @FXML private TableView<busRoute> busScheduleOverview;
+    @FXML private TableColumn<busRoute, Integer> busIDTable;
+    @FXML private TableColumn<busRoute, String> busNameTable;
+    @FXML private TableColumn<busRoute, Integer> busOriginTable;
+    @FXML private TableColumn<busRoute, Integer> busDestinationTable;
+    @FXML private TableColumn<busRoute, Integer> busDepartureTimeTable;
+    @FXML private TableColumn<busRoute, Integer> busDistanceTable;
 
     // DEZE LATER TOEVOEGEN. DEZE HAALT DE HOOGSTE userID WAARDE OP. MOET HET IN SQL GOOIEN
     // SELECT MAX(iduser) from appdb.user;
@@ -26,7 +39,7 @@ public class SubtabBusManagement {
     public Button BM_FetchData;
     public Button BM_UpdateData;
     public Button BM_RemoveBus;
-    public TableView busScheduleOverview;
+
     public TextField BM_BusName_Field;
     public TextField BM_BusID_Field;
     public RadioButton BM_Destination_Montreal;
@@ -43,18 +56,14 @@ public class SubtabBusManagement {
         BM_Destination_Montreal.setSelected(true);
 
         // Radio buttons [Origin] / Temporary Radio buttons for [Destination]
-
         BM_Origin_AlbanyNY.setUserData("Albany");
         BM_Origin_NashVilleTN.setUserData("NashVille");
         BM_Origin_AlbanyNY.setToggleGroup(originGroup);
         BM_Origin_NashVilleTN.setToggleGroup(originGroup);
-
-
         BM_Destination_Montreal.setUserData("Montreal");
         BM_Destination_NewYork.setUserData("New York");
         BM_Destination_Montreal.setToggleGroup(destinationGroup);
         BM_Destination_NewYork.setToggleGroup(destinationGroup);
-
     }
 
     public void buttonAddBus(ActionEvent actionEvent) throws SQLException {
@@ -90,14 +99,27 @@ public class SubtabBusManagement {
                     break;
             }
             WDBC.createBusRoute(busRouteID, BusID, BusName, selectedOriginSetINT, selectedDestinationSetINT, BusTime, 50);
-            // SQL Insert command. Print for now
-            System.out.println("BusID: " + BusID + " Bus name " + BusName + "\n" +
-                    "Origin: " + selectedOrigin + " to Destination : " + selectedDestination + " @ " + Hour + "H : " + Minutes + "M ");
         }
     }
 
-    public void buttonFetchBusData(ActionEvent actionEvent) {
+    public void buttonFetchBusData(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         System.out.println("fetch bus data button");
+
+        Connection C = CDB.ConnectToDB();
+        ResultSet rs = C.createStatement().executeQuery("select * FROM busroute");
+        BR.clear();
+        while(rs.next()) {
+            BR.add(new busRoute(rs.getInt("busID"), rs.getString("busName"), rs.getInt("busSourceStation"), rs.getInt("busDestinationStation"), rs.getDate("busStartTime"), rs.getInt("busDistance")));
+        }
+
+
+        busScheduleOverview.setItems(BR);
+        busIDTable.setCellValueFactory(new PropertyValueFactory<>("busID"));
+        busNameTable.setCellValueFactory(new PropertyValueFactory<>("busName"));
+        busOriginTable.setCellValueFactory(new PropertyValueFactory<>("busSourceStation"));
+        busDestinationTable.setCellValueFactory(new PropertyValueFactory<>("busDestinationStation"));
+        busDepartureTimeTable.setCellValueFactory(new PropertyValueFactory<>("busStartTime"));
+        busDistanceTable.setCellValueFactory(new PropertyValueFactory<>("busDistance"));
     }
 
     public void buttonUpdateBusData(ActionEvent actionEvent) {

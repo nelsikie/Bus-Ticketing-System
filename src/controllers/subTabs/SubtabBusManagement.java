@@ -1,17 +1,23 @@
 package controllers.subTabs;
 
 import Model.busRoute;
+import controllers.ErrorPopUp;
 import database.ConnectDB;
 import database.readDBCalls;
 import database.writeDBCalls;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +25,7 @@ import java.sql.SQLException;
 public class SubtabBusManagement {
     public readDBCalls RDBC = new readDBCalls();
     public ConnectDB CDB = new ConnectDB();
-    ObservableList<busRoute> BR = FXCollections.observableArrayList();
+    public ObservableList<busRoute> BR = FXCollections.observableArrayList();
     @FXML private TableView<busRoute> busScheduleOverview;
     @FXML private TableColumn<busRoute, Integer> busIDTable;
     @FXML private TableColumn<busRoute, String> busNameTable;
@@ -66,9 +72,21 @@ public class SubtabBusManagement {
         BM_Destination_NewYork.setToggleGroup(destinationGroup);
     }
 
-    public void buttonAddBus(ActionEvent actionEvent) throws SQLException {
+    public void buttonAddBus(ActionEvent event) throws SQLException, IOException {
         if(BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty()) {
-            System.out.println("You need to enter a value");
+//            Parent errorView = FXMLLoader.load(getClass().getResource("../../resources/errorPopUp.fxml"));
+//            Scene errorScene = new Scene(errorView);
+//            Stage stageWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//            stageWindow.setScene(errorScene);
+//            stageWindow.show();
+
+//            Parent parentHomeView = FXMLLoader.load(getClass().getResource("../../resources/errorPopUp.fxml"));
+//            Scene sceneHomeView = new Scene(parentHomeView);
+//            // This line get the stage information
+//            Stage stageWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            stageWindow.setScene(sceneHomeView);
+//            stageWindow.show();
+            ErrorPopUp error = new ErrorPopUp("You need to enter a value");
         } else {
 
             int BusID = Integer.parseInt(BM_BusID_Field.getText());
@@ -112,7 +130,6 @@ public class SubtabBusManagement {
             BR.add(new busRoute(rs.getInt("busID"), rs.getString("busName"), rs.getInt("busSourceStation"), rs.getInt("busDestinationStation"), rs.getDate("busStartTime"), rs.getInt("busDistance")));
         }
 
-
         busScheduleOverview.setItems(BR);
         busIDTable.setCellValueFactory(new PropertyValueFactory<>("busID"));
         busNameTable.setCellValueFactory(new PropertyValueFactory<>("busName"));
@@ -122,17 +139,19 @@ public class SubtabBusManagement {
         busDistanceTable.setCellValueFactory(new PropertyValueFactory<>("busDistance"));
     }
 
-    public void buttonUpdateBusData(ActionEvent actionEvent) {
-        System.out.println("update bus button data");
-    }
-
-    public void buttonRemoveBus(ActionEvent actionEvent) {
+    public void buttonRemoveBus(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
         System.out.println("remove bus button data");
+        Connection C = CDB.ConnectToDB();
+        ResultSet rs = C.createStatement().executeQuery(""); // "DELETE FROM busroute WHERE busID='" + busID + "'" how to call busID in actionEvent method
     }
 
     public void onSortBusSchedule(SortEvent<TableView> tableViewSortEvent) {
     }
 
-    public void busRouteRefreshOverview(ActionEvent actionEvent) {
+    public void buttonUpdateBusData(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
+        System.out.println("update bus button data");
+        busScheduleOverview.getSelectionModel();
+        Connection C = CDB.ConnectToDB(); // Move to top
+        ResultSet rs = C.createStatement().executeQuery("Update busroute SET ");
     }
 }

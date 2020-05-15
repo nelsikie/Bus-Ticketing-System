@@ -1,5 +1,6 @@
 package controllers.subTabs;
 
+import Model.bus;
 import Model.busRoute;
 import controllers.ErrorPopUp;
 import database.ConnectDB;
@@ -9,13 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,6 +22,7 @@ public class SubtabBusManagement {
     public readDBCalls RDBC = new readDBCalls();
     public ConnectDB CDB = new ConnectDB();
     public ObservableList<busRoute> BR = FXCollections.observableArrayList();
+
     @FXML private TableView<busRoute> busScheduleOverview;
     @FXML private TableColumn<busRoute, Integer> busIDTable;
     @FXML private TableColumn<busRoute, String> busNameTable;
@@ -34,9 +31,6 @@ public class SubtabBusManagement {
     @FXML private TableColumn<busRoute, Integer> busDepartureTimeTable;
     @FXML private TableColumn<busRoute, Integer> busDistanceTable;
 
-    // DEZE LATER TOEVOEGEN. DEZE HAALT DE HOOGSTE userID WAARDE OP. MOET HET IN SQL GOOIEN
-    // SELECT MAX(iduser) from appdb.user;
-    public Button busRouteRefresh;
     public RadioButton BM_Origin_AlbanyNY;
     public RadioButton BM_Origin_NashVilleTN;
     public TextField BM_Hour;
@@ -45,7 +39,6 @@ public class SubtabBusManagement {
     public Button BM_FetchData;
     public Button BM_UpdateData;
     public Button BM_RemoveBus;
-
     public TextField BM_BusName_Field;
     public TextField BM_BusID_Field;
     public RadioButton BM_Destination_Montreal;
@@ -57,7 +50,8 @@ public class SubtabBusManagement {
     public final ToggleGroup destinationGroup = new ToggleGroup();
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
+
         BM_Origin_AlbanyNY.setSelected(true);
         BM_Destination_Montreal.setSelected(true);
 
@@ -74,18 +68,6 @@ public class SubtabBusManagement {
 
     public void buttonAddBus(ActionEvent event) throws SQLException, IOException {
         if(BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty()) {
-//            Parent errorView = FXMLLoader.load(getClass().getResource("../../resources/errorPopUp.fxml"));
-//            Scene errorScene = new Scene(errorView);
-//            Stage stageWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//            stageWindow.setScene(errorScene);
-//            stageWindow.show();
-
-//            Parent parentHomeView = FXMLLoader.load(getClass().getResource("../../resources/errorPopUp.fxml"));
-//            Scene sceneHomeView = new Scene(parentHomeView);
-//            // This line get the stage information
-//            Stage stageWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            stageWindow.setScene(sceneHomeView);
-//            stageWindow.show();
             ErrorPopUp error = new ErrorPopUp("You need to enter a value");
         } else {
 
@@ -120,7 +102,7 @@ public class SubtabBusManagement {
         }
     }
 
-    public void buttonFetchBusData(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void buttonFetchBusRouteData(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         System.out.println("fetch bus data button");
 
         Connection C = CDB.ConnectToDB();

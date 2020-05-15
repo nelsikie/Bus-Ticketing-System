@@ -13,11 +13,11 @@ public class ConnectDB {
 
     public Connection ConnectToDB() throws ClassNotFoundException {
 
-        System.out.println("connecting to server... ");
+        //System.out.println("connecting to server... ");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connected to server... ");
+            //System.out.println("Connected to server... ");
         } catch (SQLException e) {
             e.printStackTrace();
         }

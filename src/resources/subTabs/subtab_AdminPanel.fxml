@@ -8,5 +8,6 @@
       <Button fx:id="viewAdminPanel" layoutX="422.0" layoutY="34.0" mnemonicParsing="false" text="View Admin Panel" />
       <PasswordField fx:id="fieldAdminPassword" layoutX="144.0" layoutY="34.0" />
       <Label layoutX="32.0" layoutY="38.0" text="Admin Password" />
+      <Label layoutX="93.0" layoutY="115.0" text="REGISTER NEW BUS COMES HERE" />
    </children>
 </AnchorPane>

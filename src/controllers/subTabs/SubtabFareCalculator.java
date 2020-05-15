@@ -36,6 +36,7 @@ public class SubtabFareCalculator {
         getLocations();
     }
 
+    // Method needs to be set in general location. Used somewhere else
     public void getLocations() throws ClassNotFoundException, SQLException {
         Connection C = CBD.ConnectToDB();
         ResultSet rs = C.createStatement().executeQuery("SELECT * from location");

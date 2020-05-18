@@ -8,20 +8,20 @@
       <Label layoutX="20.0" layoutY="61.0" text="Bus ID" />
       <Label layoutX="221.0" layoutY="61.0" text="Bus Name" />
       <Label layoutX="21.0" layoutY="91.0" text="Origin" />
-      <RadioButton fx:id="BM_Origin_AlbanyNY" layoutX="92.0" layoutY="91.0" mnemonicParsing="false" text="Albany, NY" />
-      <RadioButton fx:id="BM_Origin_NashVilleTN" layoutX="193.0" layoutY="91.0" mnemonicParsing="false" text="Nashville, TN" />
+      <RadioButton fx:id="BM_Origin_AlbanyNY" layoutX="92.0" layoutY="91.0" mnemonicParsing="false" text="Albany" />
+      <RadioButton fx:id="BM_Origin_NashVilleTN" layoutX="193.0" layoutY="91.0" mnemonicParsing="false" text="Nashville" />
       <Label layoutX="19.0" layoutY="153.0" text="Timing" />
       <TextField fx:id="BM_Hour" layoutX="86.0" layoutY="149.0" prefHeight="25.0" prefWidth="90.0" />
       <TextField fx:id="BM_Minutes" layoutX="193.0" layoutY="150.0" prefHeight="25.0" prefWidth="90.0" />
-      <Button fx:id="BM_AddBus" layoutX="392.0" layoutY="21.0" mnemonicParsing="false" onAction="#buttonAddBus" prefHeight="61.0" prefWidth="124.0" text="Add Bus" />
-      <Button fx:id="BM_FetchData" layoutX="392.0" layoutY="101.0" mnemonicParsing="false" onAction="#buttonFetchBusRouteData" prefHeight="61.0" prefWidth="124.0" text="Fetch Data" />
-      <Button fx:id="BM_UpdateData" layoutX="540.0" layoutY="100.0" mnemonicParsing="false" onAction="#buttonUpdateBusData" prefHeight="61.0" prefWidth="124.0" text="Update Data" />
-      <Button fx:id="BM_RemoveBus" layoutX="540.0" layoutY="21.0" mnemonicParsing="false" onAction="#buttonRemoveBus" prefHeight="61.0" prefWidth="124.0" text="Remove Bus" />
+      <Button fx:id="BM_AddBus" layoutX="550.0" layoutY="21.0" mnemonicParsing="false" onAction="#buttonAddBus" prefHeight="61.0" prefWidth="124.0" text="Add Bus" />
+      <Button fx:id="BM_FetchData" layoutX="550.0" layoutY="101.0" mnemonicParsing="false" onAction="#buttonFetchBusRouteData" prefHeight="61.0" prefWidth="124.0" text="Fetch Data" />
+      <Button fx:id="BM_UpdateData" layoutX="698.0" layoutY="100.0" mnemonicParsing="false" onAction="#buttonUpdateBusData" prefHeight="61.0" prefWidth="124.0" text="Update Data" />
+      <Button fx:id="BM_RemoveBus" layoutX="698.0" layoutY="21.0" mnemonicParsing="false" onAction="#buttonRemoveBus" prefHeight="61.0" prefWidth="124.0" text="Remove Bus" />
       <TableView fx:id="busScheduleOverview" layoutX="18.0" layoutY="187.0" onSort="#onSortBusSchedule" prefHeight="311.0" prefWidth="899.0">
         <columns>
-            <TableColumn fx:id="busIDTable" prefWidth="32.0" text="ID" />
-            <TableColumn fx:id="busNameTable" prefWidth="84.0" text="Bus Name" />
-            <TableColumn fx:id="busOriginTable" prefWidth="183.0" text="Orignated From" />
+            <TableColumn fx:id="busIDTable" prefWidth="49.0" text="Bus ID" />
+            <TableColumn fx:id="busNameTable" prefWidth="110.0" text="Bus Name" />
+            <TableColumn fx:id="busOriginTable" prefWidth="140.0" text="Orignated From" />
             <TableColumn fx:id="busDestinationTable" prefWidth="172.0" text="Destination" />
             <TableColumn fx:id="busDepartureTimeTable" prefWidth="241.0" text="Departure Time" />
             <TableColumn fx:id="busDistanceTable" prefWidth="75.0" text="Distance" />
@@ -33,5 +33,7 @@
       <RadioButton fx:id="BM_Destination_Montreal" layoutX="92.0" layoutY="122.0" mnemonicParsing="false" text="Montreal" />
       <RadioButton fx:id="BM_Destination_NewYork" layoutX="194.0" layoutY="123.0" mnemonicParsing="false" text="New York" />
       <ChoiceBox fx:id="busSelection" layoutX="83.0" layoutY="23.0" prefHeight="25.0" prefWidth="290.0" />
+      <TextField fx:id="BM_BusDistance" layoutX="393.0" layoutY="150.0" />
+      <Label layoutX="332.0" layoutY="154.0" text="Distance" />
    </children>
 </Pane>

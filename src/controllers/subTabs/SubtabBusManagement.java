@@ -26,8 +26,8 @@ public class SubtabBusManagement {
     @FXML private TableView<busRoute> busScheduleOverview;
     @FXML private TableColumn<busRoute, Integer> busIDTable;
     @FXML private TableColumn<busRoute, String> busNameTable;
-    @FXML private TableColumn<busRoute, Integer> busOriginTable;
-    @FXML private TableColumn<busRoute, Integer> busDestinationTable;
+    @FXML private TableColumn<busRoute, String> busOriginTable;
+    @FXML private TableColumn<busRoute, String> busDestinationTable;
     @FXML private TableColumn<busRoute, Integer> busDepartureTimeTable;
     @FXML private TableColumn<busRoute, Integer> busDistanceTable;
 
@@ -35,6 +35,7 @@ public class SubtabBusManagement {
     public RadioButton BM_Origin_NashVilleTN;
     public TextField BM_Hour;
     public TextField BM_Minutes;
+    public TextField BM_BusDistance;
     public Button BM_AddBus;
     public Button BM_FetchData;
     public Button BM_UpdateData;
@@ -44,8 +45,6 @@ public class SubtabBusManagement {
     public RadioButton BM_Destination_Montreal;
     public RadioButton BM_Destination_NewYork;
     public int busRouteID = 1;
-    public int selectedOriginSetINT;
-    public int selectedDestinationSetINT;
     public final ToggleGroup originGroup = new ToggleGroup();
     public final ToggleGroup destinationGroup = new ToggleGroup();
 
@@ -67,7 +66,7 @@ public class SubtabBusManagement {
     }
 
     public void buttonAddBus(ActionEvent event) throws SQLException, IOException {
-        if(BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty()) {
+        if(BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty() ||BM_BusDistance.getText().isEmpty()) {
             ErrorPopUp error = new ErrorPopUp("You need to enter a value");
         } else {
 
@@ -82,23 +81,26 @@ public class SubtabBusManagement {
             String BusTime = Hour + ":" + Minutes;
 
             writeDBCalls WDBC = new writeDBCalls();
-            switch (selectedOrigin) {
-                case "Albany":
-                    selectedOriginSetINT = 1;
-                    break;
-                case "NashVille":
-                    selectedOriginSetINT = 3;
-                    break;
-            }
-            switch (selectedDestination) {
-                case "Montreal":
-                    selectedDestinationSetINT = 2;
-                    break;
-                case "New York":
-                    selectedDestinationSetINT = 4;
-                    break;
-            }
-            WDBC.createBusRoute(busRouteID, BusID, BusName, selectedOriginSetINT, selectedDestinationSetINT, BusTime, 50);
+            selectedOrigin = originGroup.getSelectedToggle().getUserData().toString();
+            selectedDestination = originGroup.getSelectedToggle().getUserData().toString();
+            int BusDistance = Integer.parseInt(BM_BusDistance.getText());
+//            switch (selectedOrigin) {
+//                case "Albany":
+//                    selectedOriginSetINT = 1;
+//                    break;
+//                case "NashVille":
+//                    selectedOriginSetINT = 3;
+//                    break;
+//            }
+//            switch (selectedDestination) {
+//                case "Montreal":
+//                    selectedDestinationSetINT = 2;
+//                    break;
+//                case "New York":
+//                    selectedDestinationSetINT = 4;
+//                    break;
+//            }
+            WDBC.createBusRoute(busRouteID, BusID, BusName, selectedOrigin, selectedDestination, BusTime, BusDistance);
         }
     }
 
@@ -109,7 +111,7 @@ public class SubtabBusManagement {
         ResultSet rs = C.createStatement().executeQuery("select * FROM busroute");
         BR.clear();
         while(rs.next()) {
-            BR.add(new busRoute(rs.getInt("busID"), rs.getString("busName"), rs.getInt("busSourceStation"), rs.getInt("busDestinationStation"), rs.getDate("busStartTime"), rs.getInt("busDistance")));
+            BR.add(new busRoute(rs.getInt("busID"), rs.getString("busName"), rs.getString("busSourceStation"), rs.getString("busDestinationStation"), rs.getDate("busStartTime"), rs.getInt("busDistance")));
         }
 
         busScheduleOverview.setItems(BR);

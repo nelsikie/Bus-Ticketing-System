@@ -5,13 +5,13 @@ import java.util.Date;
 public class busRoute {
     //int busRouteID;
     int busID;
-    int busSourceStation;
-    int busDestinationStation;
+    String busSourceStation;
+    String busDestinationStation;
     Date busStartTime;
     int busDistance;
     String busName;
 
-    public busRoute(int busID, String busName, int busSourceStation, int busDestinationStation, Date busStartTime, int busDistance) { // int busRouteID
+    public busRoute(int busID, String busName, String busSourceStation, String busDestinationStation, Date busStartTime, int busDistance) { // int busRouteID
         this.busID = busID;
         this.busName = busName;
         this.busSourceStation = busSourceStation;
@@ -44,19 +44,19 @@ public class busRoute {
         this.busID = busID;
     }
 
-    public int getBusSourceStation() {
+    public String getBusSourceStation() {
         return busSourceStation;
     }
 
-    public void setBusSourceStation(int busSourceStation) {
+    public void setBusSourceStation(String busSourceStation) {
         this.busSourceStation = busSourceStation;
     }
 
-    public int getBusDestinationStation() {
+    public String getBusDestinationStation() {
         return busDestinationStation;
     }
 
-    public void setBusDestinationStation(int busDestinationStation) {
+    public void setBusDestinationStation(String busDestinationStation) {
         this.busDestinationStation = busDestinationStation;
     }
 

@@ -19,18 +19,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SubtabBusManagement {
+    public final ToggleGroup originGroup = new ToggleGroup();
+    public final ToggleGroup destinationGroup = new ToggleGroup();
     public readDBCalls RDBC = new readDBCalls();
     public ConnectDB CDB = new ConnectDB();
     public ObservableList<busRoute> BR = FXCollections.observableArrayList();
-
-    @FXML private TableView<busRoute> busScheduleOverview;
-    @FXML private TableColumn<busRoute, Integer> busIDTable;
-    @FXML private TableColumn<busRoute, String> busNameTable;
-    @FXML private TableColumn<busRoute, String> busOriginTable;
-    @FXML private TableColumn<busRoute, String> busDestinationTable;
-    @FXML private TableColumn<busRoute, Integer> busDepartureTimeTable;
-    @FXML private TableColumn<busRoute, Integer> busDistanceTable;
-
+    public ChoiceBox busSelection = new ChoiceBox();
+    public ObservableList<bus> BUS = FXCollections.observableArrayList();
     public RadioButton BM_Origin_AlbanyNY;
     public RadioButton BM_Origin_NashVilleTN;
     public TextField BM_Hour;
@@ -45,8 +40,20 @@ public class SubtabBusManagement {
     public RadioButton BM_Destination_Montreal;
     public RadioButton BM_Destination_NewYork;
     public int busRouteID = 1;
-    public final ToggleGroup originGroup = new ToggleGroup();
-    public final ToggleGroup destinationGroup = new ToggleGroup();
+    @FXML
+    private TableView<busRoute> busScheduleOverview;
+    @FXML
+    private TableColumn<busRoute, Integer> busIDTable;
+    @FXML
+    private TableColumn<busRoute, String> busNameTable;
+    @FXML
+    private TableColumn<busRoute, String> busOriginTable;
+    @FXML
+    private TableColumn<busRoute, String> busDestinationTable;
+    @FXML
+    private TableColumn<busRoute, Integer> busDepartureTimeTable;
+    @FXML
+    private TableColumn<busRoute, Integer> busDistanceTable;
 
     @FXML
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -63,13 +70,14 @@ public class SubtabBusManagement {
         BM_Destination_NewYork.setUserData("New York");
         BM_Destination_Montreal.setToggleGroup(destinationGroup);
         BM_Destination_NewYork.setToggleGroup(destinationGroup);
+        loadAvailableBusses();
     }
 
     public void buttonAddBus(ActionEvent event) throws SQLException, IOException {
-        if(BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty() ||BM_BusDistance.getText().isEmpty()) {
+        if (BM_BusID_Field.getText().equals("") || BM_BusName_Field.getText().isEmpty() || BM_Hour.getText().isEmpty() || BM_Minutes.getText().isEmpty() || BM_BusDistance.getText().isEmpty()) {
             ErrorPopUp error = new ErrorPopUp("You need to enter a value");
         } else {
-
+            String selectedBusInsert = busSelection.getSelectionModel().selectedIndexProperty().toString();
             int BusID = Integer.parseInt(BM_BusID_Field.getText());
             String BusName = BM_BusName_Field.getText();
 
@@ -84,33 +92,29 @@ public class SubtabBusManagement {
             selectedOrigin = originGroup.getSelectedToggle().getUserData().toString();
             selectedDestination = originGroup.getSelectedToggle().getUserData().toString();
             int BusDistance = Integer.parseInt(BM_BusDistance.getText());
-//            switch (selectedOrigin) {
-//                case "Albany":
-//                    selectedOriginSetINT = 1;
-//                    break;
-//                case "NashVille":
-//                    selectedOriginSetINT = 3;
-//                    break;
-//            }
-//            switch (selectedDestination) {
-//                case "Montreal":
-//                    selectedDestinationSetINT = 2;
-//                    break;
-//                case "New York":
-//                    selectedDestinationSetINT = 4;
-//                    break;
-//            }
             WDBC.createBusRoute(busRouteID, BusID, BusName, selectedOrigin, selectedDestination, BusTime, BusDistance);
         }
     }
 
+    public void loadAvailableBusses() throws SQLException, ClassNotFoundException {
+        Connection C = CDB.ConnectToDB();
+        ResultSet rs = C.createStatement().executeQuery("select * FROM bus");
+        while (rs.next()) {
+            BUS.add(new bus(rs.getInt("idBus"), rs.getString("busName")));
+        }
+        BUS.forEach(bus -> {
+            busSelection.getItems().add("ID: " + bus.getIdBus() + " Name: " + bus.getBusName());
+        });
+    }
+
     public void buttonFetchBusRouteData(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        System.out.println("fetch bus data button");
+        String selectedBusInsert = busSelection.getValue().toString();
+        System.out.println(selectedBusInsert);
 
         Connection C = CDB.ConnectToDB();
         ResultSet rs = C.createStatement().executeQuery("select * FROM busroute");
         BR.clear();
-        while(rs.next()) {
+        while (rs.next()) {
             BR.add(new busRoute(rs.getInt("busID"), rs.getString("busName"), rs.getString("busSourceStation"), rs.getString("busDestinationStation"), rs.getDate("busStartTime"), rs.getInt("busDistance")));
         }
 
@@ -129,13 +133,13 @@ public class SubtabBusManagement {
         ResultSet rs = C.createStatement().executeQuery(""); // "DELETE FROM busroute WHERE busID='" + busID + "'" how to call busID in actionEvent method
     }
 
-    public void onSortBusSchedule(SortEvent<TableView> tableViewSortEvent) {
-    }
-
     public void buttonUpdateBusData(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
         System.out.println("update bus button data");
         busScheduleOverview.getSelectionModel();
         Connection C = CDB.ConnectToDB(); // Move to top
         ResultSet rs = C.createStatement().executeQuery("Update busroute SET ");
+    }
+
+    public void onSortBusSchedule(SortEvent<TableView<busRoute>> tableViewSortEvent) {
     }
 }

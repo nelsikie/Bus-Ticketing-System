@@ -11,6 +11,11 @@ public class bus {
         this.busSize = busSize;
     }
 
+    public bus(int idBus, String busName) {
+        this.idBus = idBus;
+        this.busName = busName;
+    }
+
     public bus(String busName) {
         this.busName = busName;
     }

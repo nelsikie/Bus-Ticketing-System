@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.subTabs.SubtabReservation">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="645.0" prefWidth="1039.0">
+<AnchorPane fx:id="busReservationAnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.subTabs.SubtabReservation">
             <children>
                 <Label layoutX="29.0" layoutY="64.0" text="Start Station :">
                     <font>
@@ -43,11 +42,6 @@
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
                 <Label layoutX="34.0" layoutY="211.0" text="DOJ:" />
-                <SubScene fx:id="busDetails" height="323.0" layoutX="343.0" layoutY="228.0" width="659.0">
-                    <root>
-                        <Region />
-                    </root>
-                </SubScene>
                 <Button layoutX="84.0" layoutY="242.0" mnemonicParsing="false" text="Make Reservation">
                     <font>
                         <Font name="System Bold" size="12.0" />
@@ -55,8 +49,19 @@
                 </Button>
                 <Label layoutX="33.0" layoutY="148.0" text="Select Bus from List &amp; Click Load" />
                 <ChoiceBox fx:id="ddAvailableBuses" layoutX="233.0" layoutY="144.0" prefHeight="25.0" prefWidth="273.0" />
-                <Button fx:id="loadButton" layoutX="597.0" layoutY="144.0" mnemonicParsing="false" text="Load" />
+                <Button fx:id="loadButton" layoutX="597.0" layoutY="144.0" mnemonicParsing="false" onAction="#loadBusAction" text="Load" />
                 <Label layoutX="388.0" layoutY="181.0" text="You have Selected: " />
          <Label fx:id="seatNumber" layoutX="520.0" layoutY="181.0" text="Label" />
-            </children></AnchorPane>
+      <GridPane fx:id="busSeatImageGridPane" layoutX="73.0" layoutY="310.0" prefHeight="274.0" prefWidth="891.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="busViewImageView" fitHeight="63.0" fitWidth="34.0" onMouseClicked="#onClicked" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </GridPane>
+            </children>
 </AnchorPane>

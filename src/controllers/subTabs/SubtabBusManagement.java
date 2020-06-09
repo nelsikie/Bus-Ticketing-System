@@ -108,9 +108,6 @@ public class SubtabBusManagement {
     }
 
     public void buttonFetchBusRouteData(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        String selectedBusInsert = busSelection.getValue().toString();
-        System.out.println(selectedBusInsert);
-
         Connection C = CDB.ConnectToDB();
         ResultSet rs = C.createStatement().executeQuery("select * FROM busroute");
         BR.clear();
